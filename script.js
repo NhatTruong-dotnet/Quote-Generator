@@ -1,8 +1,22 @@
 // Get Quote From API
 const quotetext = document.getElementById('quote');
 const quoteauthor = document.getElementById('author');
+const loader = document.getElementById('loader');
+const quoteContainer = document.getElementById('quote-container');
+// show loading
+function loading(){
+    loader.hidden =false;
+    quoteContainer.hidden = true;
+}
 
+function complete(){
+    if(!loader.hidden){
+        quoteContainer.hidden = false;
+        loader.hidden = true;
+    }
+}
 async function getQuote(){
+    loading();
     const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
     const apiUrl = 'http://api.forismatic.com/api/1.0/?method=getQuote&lang=en&format=json';
     
@@ -31,6 +45,9 @@ async function changeQuoteDisplay(){
         quoteauthor.innerHTML = 'Unknown';
     else
         quoteauthor.innerHTML = await quoteData['quoteAuthor'];
+    
+    // Completely change quote
+    complete();
 }
 
 document.getElementById('new-quote').addEventListener('click',changeQuoteDisplay);
