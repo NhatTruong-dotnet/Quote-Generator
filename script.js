@@ -49,12 +49,14 @@ async function changeQuoteDisplay(){
         quoteauthor.innerHTML = 'Unknown';
     else
         quoteauthor.innerHTML = await quoteData['quoteAuthor'];
-    
+    await modifyQuoteLink(quoteData['quoteLink']);
     // Completely change quote
-    facebookButton.setAttribute('href', quoteData['quoteLink']);
     removeLoadingSpinner();
 }
 
+async function modifyQuoteLink(linkQuote){
+    facebookButton.setAttribute('href', linkQuote);
+}
 document.getElementById('new-quote').addEventListener('click',changeQuoteDisplay);
 
 //on Load
