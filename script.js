@@ -36,8 +36,8 @@ async function changeQuoteDisplay(){
     var quoteData = await getQuote();
 
     // If quote text to long, reduce font-size
-    await changeFacebookPostLink(quoteData['quoteLink']);
-    if(quoteData['quoteText'].length > 50)
+    
+    if(await quoteData['quoteText'].length > 50)
         quotetext.classList.add('long-quote');
     else
         quotetext.classList.remove('long-quote');
@@ -45,23 +45,16 @@ async function changeQuoteDisplay(){
     quotetext.innerHTML = await quoteData['quoteText'];
 
     // If Author is blank, add 'Unknown'
-    if(quoteData['quoteAuthor'] === '')
+    if(await quoteData['quoteAuthor'] === '')
         quoteauthor.innerHTML = 'Unknown';
     else
         quoteauthor.innerHTML = await quoteData['quoteAuthor'];
     
     // Completely change quote
+    facebookButton.setAttribute('href', quoteData['quoteLink']);
     removeLoadingSpinner();
-    const temp = document.getElementById('fb-share-button');
-    console.log(temp);
-    console.log(quoteData);
-}
-
-async function changeFacebookPostLink(linkToQuote){
-    facebookButton.href = linkToQuote;
 }
 
 document.getElementById('new-quote').addEventListener('click',changeQuoteDisplay);
 
-// SDK Facebook
 //on Load
