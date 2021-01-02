@@ -3,20 +3,23 @@ const quotetext = document.getElementById('quote');
 const quoteauthor = document.getElementById('author');
 const loader = document.getElementById('loader');
 const quoteContainer = document.getElementById('quote-container');
-// show loading
-function loading(){
+const facebookButton = document.getElementById('fb-share-button');
+
+// loading spinner shown
+function showLoadingSpinner(){
     loader.hidden =false;
     quoteContainer.hidden = true;
 }
-
-function complete(){
+// remove loading spinner
+function removeLoadingSpinner(){
     if(!loader.hidden){
         quoteContainer.hidden = false;
         loader.hidden = true;
     }
 }
+// get quote from api
 async function getQuote(){
-    loading();
+    showLoadingSpinner();
     const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
     const apiUrl = 'http://api.forismatic.com/api/1.0/?method=getQuote&lang=en&format=json';
     
@@ -33,6 +36,7 @@ async function changeQuoteDisplay(){
     var quoteData = await getQuote();
 
     // If quote text to long, reduce font-size
+    await changeFacebookPostLink(quoteData['quoteLink']);
     if(quoteData['quoteText'].length > 50)
         quotetext.classList.add('long-quote');
     else
@@ -47,9 +51,17 @@ async function changeQuoteDisplay(){
         quoteauthor.innerHTML = await quoteData['quoteAuthor'];
     
     // Completely change quote
-    complete();
+    removeLoadingSpinner();
+    const temp = document.getElementById('fb-share-button');
+    console.log(temp);
+    console.log(quoteData);
+}
+
+async function changeFacebookPostLink(linkToQuote){
+    facebookButton.href = linkToQuote;
 }
 
 document.getElementById('new-quote').addEventListener('click',changeQuoteDisplay);
 
+// SDK Facebook
 //on Load

@@ -20,9 +20,7 @@
         </div>
         <!-- Buttons -->
         <div class="button-container">
-            <button class="facebook-button" id="facebook" title="Post this">
-                <i class="fab fa-facebook"></i>
-            </button>
+            <div class="fb-share-button" id="fb-share-button" href="http://forismatic.com/en/14d6a6ae11/" data-layout="button" data-size="small"><button target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=" class="fb-xfbml-parse-ignore"></button></div>
             <button id="new-quote">New Quote</button>
         </div>
         </div>
@@ -32,7 +30,10 @@
         <div class="loader" id="loader" hidden = true>
 
         </div>
+        <div id="fb-root"></div>
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v9.0&appId=114443170462845&autoLogAppEvents=1" nonce="E5i2kCFY"></script>
     <!--Script-->
     <script src="./script.js"></script>
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>
 </body>
 </html>
